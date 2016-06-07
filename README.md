@@ -92,7 +92,7 @@ Network Engineers Manifesto
 
 ## Personal Development
 
-- everyone must commit to self-improvement
+- Everyone must commit to self-improvement
 - Certification track - optional but highly recommended 
-- Regular hardware deep dives based on freely available vendor documentations, talks, presentations 
-
+- Regular hardware deep dives based on freely available vendor documentations, talks, presentations
+- Attend relevant conferences - but be careful about "time sinks"
