@@ -12,8 +12,6 @@ Network Engineers Manifesto
 - Dedication to all our customers  
 - "Good enough" is too low a bar
 
-## [Monitoring](Monitoring.md) 
-
 ### [Monitoring](Monitoring.md) 
 
 - Monitor, from outside:
