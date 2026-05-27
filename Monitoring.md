@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Monitoring Tools
-permalink: /Monitoring.html
+permalink: /monitoring.html
 ---
 
 # Monitoring Tools
