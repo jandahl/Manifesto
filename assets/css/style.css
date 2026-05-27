@@ -11,6 +11,7 @@
 
 :root {
     --bg:           #FAFAF8;
+    --bg-rgb:       250, 250, 248;
     --surface:      #FFFFFF;
     --text:         #1C1C1E;
     --text-muted:   #4B5563;
@@ -43,7 +44,7 @@ nav {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(250, 250, 248, 0.90);
+    background: rgba(var(--bg-rgb), 0.90);
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
@@ -158,8 +159,8 @@ nav {
 }
 
 /* first h3 / h2 gets no top border — it follows the subtitle */
-.page-manifesto .content h1 + p + h3,
-.page-manifesto .content h1 + p + h2,
+.content h1 + p + h3,
+.content h1 + p + h2,
 .content h1 + h3,
 .content h1 + h2 {
     border-top: none;
@@ -286,5 +287,7 @@ footer p {
         padding: 0.75rem 1rem;
         gap: 0.5rem;
     }
+    .nav-links { gap: 0.5rem; }
+    .nav-links a { padding: 0.5rem 0.75rem; }
     .content { padding: 3rem 1.5rem 4rem; }
 }
