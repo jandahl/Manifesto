@@ -1,3 +1,9 @@
+---
+layout: default
+title: Manifesto
+permalink: /
+---
+
 # Manifesto
 
 Network Engineers Manifesto 
