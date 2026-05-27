@@ -1,7 +1,9 @@
 /* ─────────────────────────────────────────
-   Network Engineers Manifesto — stylesheet
+   Network Engineers Manifesto — light theme
    Font: IBM Plex Serif / Sans / Mono
    ───────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Serif:wght@300;400;600&display=swap');
 
 *, *::before, *::after {
     margin: 0;
