@@ -182,10 +182,8 @@ nav {
 }
 
 .content ul li {
-    display: flex;
-    gap: 0.875rem;
-    align-items: flex-start;
-    padding: 0.55rem 0;
+    position: relative;
+    padding: 0.55rem 0 0.55rem 1.25rem;
     font-size: 0.9375rem;
     color: var(--text);
     border-bottom: 1px solid var(--border-light);
@@ -197,12 +195,13 @@ nav {
 
 .content ul li::before {
     content: '';
+    position: absolute;
+    left: 0;
+    top: 1.1rem;
     width: 5px;
     height: 5px;
     border-radius: 50%;
     background: var(--accent);
-    flex-shrink: 0;
-    margin-top: 0.6rem;
 }
 
 /* Nested lists */
@@ -216,16 +215,19 @@ nav {
     font-size: 0.875rem;
     color: var(--text-muted);
     border-bottom: none;
-    padding: 0.2rem 0;
+    padding: 0.2rem 0 0.2rem 1rem;
 }
 
 .content ul li > ul li::before {
     content: '–';
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
     background: none;
     color: var(--border);
     width: auto;
     height: auto;
-    margin-top: 0;
+    border-radius: 0;
     font-size: 0.8rem;
 }
 
@@ -275,6 +277,11 @@ footer p {
 /* ── Responsive ──────────────────────────── */
 
 @media (max-width: 680px) {
-    .nav-links { display: none; }
+    .nav-inner {
+        flex-direction: column;
+        height: auto;
+        padding: 0.75rem 1rem;
+        gap: 0.5rem;
+    }
     .content { padding: 3rem 1.5rem 4rem; }
 }

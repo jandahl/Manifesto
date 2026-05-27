@@ -15,7 +15,7 @@
     <div class="nav-inner">
         <a class="nav-brand" href="{{ '/' | relative_url }}">Network Engineers</a>
         <ul class="nav-links">
-            <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="active"{% endif %}>Manifesto</a></li>
+            <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' or page.url == '/index.html' %} class="active"{% endif %}>Manifesto</a></li>
             <li><a href="{{ '/Monitoring.html' | relative_url }}"{% if page.url contains 'Monitoring' %} class="active"{% endif %}>Monitoring Tools</a></li>
         </ul>
     </div>
