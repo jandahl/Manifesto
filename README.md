@@ -1,3 +1,8 @@
+---
+layout: default
+title: Manifesto
+---
+
 # Manifesto
 
 Network Engineers Manifesto 

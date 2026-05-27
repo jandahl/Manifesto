@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} — Network Engineers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a class="nav-brand" href="{{ '/' | relative_url }}">Network Engineers</a>
+        <ul class="nav-links">
+            <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="active"{% endif %}>Manifesto</a></li>
+            <li><a href="{{ '/Monitoring.html' | relative_url }}"{% if page.url contains 'Monitoring' %} class="active"{% endif %}>Monitoring Tools</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="content">
+    {{ content }}
+</main>
+
+<footer>
+    <p>Network Engineers Manifesto &mdash; A living document</p>
+</footer>
+
+</body>
+</html>

@@ -1,3 +1,8 @@
+---
+layout: default
+title: Monitoring Tools
+---
+
 # Monitoring Tools
 
 Below is a list of some tools which can be used to monitor your network
