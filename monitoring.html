@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring Tools — Network Engineers Manifesto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:           #FAFAF8;
+            --surface:      #FFFFFF;
+            --text:         #1C1C1E;
+            --text-muted:   #6B7280;
+            --heading:      #0A0A0A;
+            --accent:       #0F62FE;
+            --accent-bg:    #EEF4FF;
+            --border:       #E5E2DC;
+            --border-light: #F0EDE8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'IBM Plex Sans', system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Navigation ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 250, 248, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-family: 'IBM Plex Serif', serif;
+            font-weight: 400;
+            font-size: 0.875rem;
+            color: var(--heading);
+            text-decoration: none;
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.3rem 0.7rem;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .nav-back:hover { background: var(--accent); color: #fff; }
+
+        /* ── Page header ── */
+        .page-header {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 4rem 2rem 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .page-eyebrow span {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .page-eyebrow::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        h1 {
+            font-family: 'IBM Plex Serif', serif;
+            font-weight: 300;
+            font-size: clamp(2.25rem, 6vw, 4.5rem);
+            line-height: 1.08;
+            letter-spacing: -0.025em;
+            color: var(--heading);
+        }
+
+        h1 em {
+            font-style: italic;
+        }
+
+        .page-desc {
+            margin-top: 1rem;
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            max-width: 540px;
+        }
+
+        /* ── Main ── */
+        main {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 3rem 2rem 6rem;
+        }
+
+        /* ── Category ── */
+        .category {
+            margin-bottom: 3rem;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .category-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .category-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ── Tool grid ── */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .tool-card {
+            background: var(--surface);
+            padding: 1.1rem 1.25rem 1.2rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            transition: background 0.15s;
+        }
+
+        .tool-card:hover { background: var(--accent-bg); }
+
+        .tool-name {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--heading);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tool-name svg {
+            opacity: 0;
+            transition: opacity 0.15s;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .tool-card:hover .tool-name svg { opacity: 1; }
+
+        .tool-url {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            .page-header { padding: 3rem 1.5rem 2rem; }
+            main { padding: 2rem 1.5rem 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a class="nav-brand" href="index.html">Network Engineers Manifesto</a>
+        <a class="nav-back" href="index.html">← Back</a>
+    </div>
+</nav>
+
+<header class="page-header">
+    <div class="page-eyebrow">
+        <span>Reference</span>
+    </div>
+    <h1>Monitoring <em>Tools</em></h1>
+    <p class="page-desc">A curated list of tools for network monitoring, flow analysis, time series collection, and anomaly detection.</p>
+</header>
+
+<main>
+
+    <div class="category">
+        <div class="category-header">
+            <span class="category-label">SNMP Based</span>
+            <div class="category-line"></div>
+        </div>
+        <div class="tool-grid">
+            <a class="tool-card" href="http://www.librenms.org/" target="_blank" rel="noopener">
+                <span class="tool-name">LibreNMS <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">librenms.org</span>
+            </a>
+            <a class="tool-card" href="http://observium.org/" target="_blank" rel="noopener">
+                <span class="tool-name">Observium <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">observium.org</span>
+            </a>
+            <a class="tool-card" href="http://www.cacti.net/" target="_blank" rel="noopener">
+                <span class="tool-name">Cacti <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">cacti.net</span>
+            </a>
+            <a class="tool-card" href="http://www.opennms.org/" target="_blank" rel="noopener">
+                <span class="tool-name">OpenNMS <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">opennms.org</span>
+            </a>
+            <a class="tool-card" href="https://icinga.com/" target="_blank" rel="noopener">
+                <span class="tool-name">Icinga <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">icinga.com</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="category">
+        <div class="category-header">
+            <span class="category-label">IPFIX / NetFlow / sFlow</span>
+            <div class="category-line"></div>
+        </div>
+        <div class="tool-grid">
+            <a class="tool-card" href="https://tools.netsa.cert.org/silk/" target="_blank" rel="noopener">
+                <span class="tool-name">SiLK <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">tools.netsa.cert.org/silk</span>
+            </a>
+            <a class="tool-card" href="http://www.pmacct.net/" target="_blank" rel="noopener">
+                <span class="tool-name">pmacct <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">pmacct.net</span>
+            </a>
+            <a class="tool-card" href="http://nfdump.sourceforge.net/" target="_blank" rel="noopener">
+                <span class="tool-name">NFDump <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">nfdump.sourceforge.net</span>
+            </a>
+            <a class="tool-card" href="http://www.ntop.org/" target="_blank" rel="noopener">
+                <span class="tool-name">ntop <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">ntop.org</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="category">
+        <div class="category-header">
+            <span class="category-label">SPAN / Mirror / pcap</span>
+            <div class="category-line"></div>
+        </div>
+        <div class="tool-grid">
+            <a class="tool-card" href="http://tstat.polito.it" target="_blank" rel="noopener">
+                <span class="tool-name">tstat <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">tstat.polito.it</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="category">
+        <div class="category-header">
+            <span class="category-label">Time Series</span>
+            <div class="category-line"></div>
+        </div>
+        <div class="tool-grid">
+            <a class="tool-card" href="https://collectd.org/" target="_blank" rel="noopener">
+                <span class="tool-name">Collectd <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">collectd.org</span>
+            </a>
+            <a class="tool-card" href="https://github.com/graphite-project/graphite-web" target="_blank" rel="noopener">
+                <span class="tool-name">Graphite Web <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">github.com/graphite-project</span>
+            </a>
+            <a class="tool-card" href="https://github.com/graphite-project/carbon" target="_blank" rel="noopener">
+                <span class="tool-name">Carbon <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">Graphite metric processing</span>
+            </a>
+            <a class="tool-card" href="https://github.com/graphite-project/whisper" target="_blank" rel="noopener">
+                <span class="tool-name">Whisper <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">Graphite time series DB</span>
+            </a>
+            <a class="tool-card" href="https://prometheus.io/" target="_blank" rel="noopener">
+                <span class="tool-name">Prometheus <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">prometheus.io</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="category">
+        <div class="category-header">
+            <span class="category-label">Prediction / Anomaly Detection</span>
+            <div class="category-line"></div>
+        </div>
+        <div class="tool-grid">
+            <a class="tool-card" href="https://github.com/eleme/banshee" target="_blank" rel="noopener">
+                <span class="tool-name">Banshee <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">github.com/eleme/banshee</span>
+            </a>
+            <a class="tool-card" href="http://cricket.sourceforge.net/aberrant/rrd_hw.htm" target="_blank" rel="noopener">
+                <span class="tool-name">RRDTool <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">Aberrant behavior detection</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="category">
+        <div class="category-header">
+            <span class="category-label">Dataplane</span>
+            <div class="category-line"></div>
+        </div>
+        <div class="tool-grid">
+            <a class="tool-card" href="https://github.com/mierdin/todd" target="_blank" rel="noopener">
+                <span class="tool-name">todd <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">github.com/mierdin/todd</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="category">
+        <div class="category-header">
+            <span class="category-label">Log Collection</span>
+            <div class="category-line"></div>
+        </div>
+        <div class="tool-grid">
+            <a class="tool-card" href="https://www.graylog.org" target="_blank" rel="noopener">
+                <span class="tool-name">Graylog <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">graylog.org</span>
+            </a>
+            <a class="tool-card" href="https://www.elastic.co/downloads" target="_blank" rel="noopener">
+                <span class="tool-name">ELK Stack <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">elastic.co</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="category">
+        <div class="category-header">
+            <span class="category-label">External Monitoring</span>
+            <div class="category-line"></div>
+        </div>
+        <div class="tool-grid">
+            <a class="tool-card" href="https://atlas.ripe.net" target="_blank" rel="noopener">
+                <span class="tool-name">RIPE Atlas <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">atlas.ripe.net</span>
+            </a>
+            <a class="tool-card" href="https://statuscake.com" target="_blank" rel="noopener">
+                <span class="tool-name">StatusCake <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 9.5l7-7M3.5 2.5h6v6"/></svg></span>
+                <span class="tool-url">statuscake.com</span>
+            </a>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <p>Network Engineers Manifesto &mdash; A living document</p>
+</footer>
+
+</body>
+</html>

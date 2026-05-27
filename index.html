@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Engineers Manifesto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:           #FAFAF8;
+            --surface:      #FFFFFF;
+            --text:         #1C1C1E;
+            --text-muted:   #6B7280;
+            --heading:      #0A0A0A;
+            --accent:       #0F62FE;
+            --accent-bg:    #EEF4FF;
+            --border:       #E5E2DC;
+            --border-light: #F0EDE8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'IBM Plex Sans', system-ui, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Navigation ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 250, 248, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-family: 'IBM Plex Serif', serif;
+            font-weight: 400;
+            font-size: 0.875rem;
+            color: var(--heading);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.25rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 3px;
+            transition: color 0.15s, background 0.15s;
+        }
+
+        .nav-links a:hover { color: var(--accent); background: var(--accent-bg); }
+
+        .nav-links .nav-cta a {
+            color: var(--accent);
+            border: 1px solid currentColor;
+        }
+
+        .nav-links .nav-cta a:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 5.5rem 2rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-eyebrow span {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .hero-eyebrow::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        h1 {
+            font-family: 'IBM Plex Serif', serif;
+            font-weight: 300;
+            font-size: clamp(3.5rem, 9vw, 7.5rem);
+            line-height: 1.0;
+            letter-spacing: -0.03em;
+            color: var(--heading);
+            margin-bottom: 3rem;
+        }
+
+        h1 strong {
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .principle {
+            background: var(--surface);
+            padding: 1.1rem 1.25rem;
+            display: flex;
+            gap: 0.875rem;
+            align-items: flex-start;
+            transition: background 0.15s;
+        }
+
+        .principle:hover { background: var(--accent-bg); }
+
+        .principle-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 0.55rem;
+        }
+
+        .principle p {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* ── Main ── */
+        main {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+        }
+
+        /* ── Sections ── */
+        .section {
+            padding: 3.5rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section:last-child { border-bottom: none; }
+
+        .section-meta {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .section-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            padding-top: 0.2rem;
+        }
+
+        h2 {
+            font-family: 'IBM Plex Serif', serif;
+            font-weight: 600;
+            font-size: 1.625rem;
+            color: var(--heading);
+            letter-spacing: -0.015em;
+            line-height: 1.25;
+        }
+
+        h3 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-weight: 500;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin: 1.75rem 0 0.6rem;
+        }
+
+        /* ── Lists ── */
+        .item-list { list-style: none; }
+
+        .item-list > li {
+            display: flex;
+            gap: 0.875rem;
+            padding: 0.6rem 0;
+            font-size: 0.9375rem;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text);
+        }
+
+        .item-list > li:last-child { border-bottom: none; }
+
+        .item-list > li::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--border);
+            flex-shrink: 0;
+            margin-top: 0.65rem;
+        }
+
+        .item-list > li > ul {
+            list-style: none;
+            margin-top: 0.4rem;
+        }
+
+        .item-list > li > ul > li {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.25rem 0;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .item-list > li > ul > li::before {
+            content: '–';
+            color: var(--border);
+            flex-shrink: 0;
+        }
+
+        code {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.83em;
+            background: var(--accent-bg);
+            color: var(--accent);
+            padding: 0.1em 0.45em;
+            border-radius: 3px;
+        }
+
+        /* ── Callout ── */
+        .callout {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 1rem 1.25rem;
+            background: var(--accent-bg);
+            border: 1px solid #C0D5FF;
+            border-radius: 5px;
+            margin-bottom: 1.75rem;
+        }
+
+        .callout p {
+            font-size: 0.875rem;
+            color: #1A3A6B;
+        }
+
+        .callout-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            white-space: nowrap;
+            padding: 0.45rem 0.9rem;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .callout-link:hover { background: var(--accent); color: #fff; }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            .nav-links { display: none; }
+
+            .hero { padding: 3.5rem 1.5rem 2.5rem; }
+
+            main { padding: 0 1.5rem 4rem; }
+
+            .callout { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a class="nav-brand" href="index.html">Network Engineers</a>
+        <ul class="nav-links">
+            <li><a href="#monitoring">Monitoring</a></li>
+            <li><a href="#documentation">Docs</a></li>
+            <li><a href="#deployment">Deployment</a></li>
+            <li><a href="#failure">Failure</a></li>
+            <li><a href="#remote">Remote</a></li>
+            <li><a href="#reporting">Reporting</a></li>
+            <li><a href="#personal">Growth</a></li>
+            <li class="nav-cta"><a href="monitoring.html">Tools →</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="hero-eyebrow">
+        <span>Network Engineers</span>
+    </div>
+    <h1><strong>Manifesto</strong></h1>
+
+    <div class="principles-grid">
+        <div class="principle"><div class="principle-dot"></div><p>Data driven decisions</p></div>
+        <div class="principle"><div class="principle-dot"></div><p>Excellence in all things</p></div>
+        <div class="principle"><div class="principle-dot"></div><p>Technical depth and no technology religion</p></div>
+        <div class="principle"><div class="principle-dot"></div><p>Clarity of vision, clarity of execution</p></div>
+        <div class="principle"><div class="principle-dot"></div><p>Lead the business in decisions related to transportation of packets</p></div>
+        <div class="principle"><div class="principle-dot"></div><p>Dedication to all our customers</p></div>
+        <div class="principle"><div class="principle-dot"></div><p>"Good enough" is too low a bar</p></div>
+    </div>
+</header>
+
+<main>
+
+    <section class="section" id="monitoring">
+        <div class="section-meta">
+            <span class="section-num">01</span>
+            <h2>Monitoring</h2>
+        </div>
+
+        <div class="callout">
+            <p>A curated reference of monitoring tools — SNMP, flow-based, time series, and more.</p>
+            <a class="callout-link" href="monitoring.html">View Monitoring Tools →</a>
+        </div>
+
+        <h3>From outside</h3>
+        <ul class="item-list">
+            <li>Implement end-to-end tests (e.g. server to server, end-user connections to DC)</li>
+            <li>Make use of external monitoring services</li>
+        </ul>
+
+        <h3>Per switch</h3>
+        <ul class="item-list">
+            <li>Interface pps, ups, mps, bitrate, drops, errors, buffer depth</li>
+            <li>CPU, Mem, ICMP messages generated</li>
+            <li>STP states</li>
+        </ul>
+
+        <h3>Per router</h3>
+        <ul class="item-list">
+            <li>All routing protocol states</li>
+            <li>Interface pps, ups, mps, bitrate, drops, errors, buffer depth</li>
+            <li>CPU, Mem, ICMP messages generated</li>
+        </ul>
+
+        <h3>Per firewall</h3>
+        <ul class="item-list">
+            <li>Interface pps, ups, mps, bitrate, drops, errors, buffer depth</li>
+            <li>CPU, Mem, ICMP messages generated</li>
+            <li>CPS, Throughput</li>
+            <li>Dropped connections</li>
+            <li>ASIC drops</li>
+        </ul>
+
+        <h3>Per load balancer</h3>
+        <ul class="item-list">
+            <li>Interface pps, ups, mps, bitrate, drops, errors, buffer depth</li>
+            <li>CPU, Mem, ICMP messages generated</li>
+            <li>CPS, Throughput per VIP</li>
+            <li>Dropped connections</li>
+            <li>ASIC drops</li>
+        </ul>
+
+        <h3>Per access point</h3>
+        <ul class="item-list">
+            <li>Interface pps, ups, mps, bitrate, drops, errors, buffer depth</li>
+            <li>CPU, Mem, ICMP messages generated</li>
+            <li>Logged in users, failed login attempts</li>
+        </ul>
+
+        <h3>Per service</h3>
+        <ul class="item-list">
+            <li>p99, p95 metrics for service latency:
+                <ul>
+                    <li>For end-to-end transaction</li>
+                    <li>For TCP re-transmissions</li>
+                    <li>Latency to/drop server from all DCs</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Single pane of glass</h3>
+        <ul class="item-list">
+            <li>All monitoring to be a single pane of glass for users, API-driven to allow them to extract their own data</li>
+        </ul>
+    </section>
+
+    <section class="section" id="documentation">
+        <div class="section-meta">
+            <span class="section-num">02</span>
+            <h2>Documentation</h2>
+        </div>
+        <ul class="item-list">
+            <li>Everything required to understand the network should be documented</li>
+            <li>Documentation must never be out of date — automation can help with this</li>
+            <li>Use documentation to explain why choices have been made</li>
+            <li>Use documentation to explain what other options were rejected</li>
+        </ul>
+    </section>
+
+    <section class="section" id="deployment">
+        <div class="section-meta">
+            <span class="section-num">03</span>
+            <h2>Deployment</h2>
+        </div>
+        <ul class="item-list">
+            <li>Static routing to be avoided wherever possible</li>
+            <li>Zero touch deployment for new gear</li>
+            <li>Entirely templated configlets:
+                <ul>
+                    <li>Base system configuration, including: AAA, Logging</li>
+                    <li>OSPF</li>
+                    <li>STP</li>
+                    <li>BGP configlets</li>
+                    <li>IPSec tunneling</li>
+                </ul>
+            </li>
+            <li>Absolutely no manual configuration pushes to production</li>
+            <li>Design and build a working lab for prototyping configuration</li>
+            <li>Goal to provide an API to end users to deploy their infrastructure as they see fit</li>
+        </ul>
+    </section>
+
+    <section class="section" id="failure">
+        <div class="section-meta">
+            <span class="section-num">04</span>
+            <h2>Planning for Failure</h2>
+        </div>
+        <ul class="item-list">
+            <li>You need redundancy and failovers at every layer</li>
+            <li><code>storage</code>, <code>servers</code>, <code>routers</code>, <code>switches</code>, <code>uplinks</code> are going to fail — sometimes in an isolated manner, sometimes in spectacular simultaneous blowouts. Plan for automatic alternatives.</li>
+            <li>Having 3 independent fail-safe systems is just fluff if you don't test failover — periodically.</li>
+        </ul>
+    </section>
+
+    <section class="section" id="remote">
+        <div class="section-meta">
+            <span class="section-num">05</span>
+            <h2>Remote Offices</h2>
+        </div>
+        <ul class="item-list">
+            <li>Regular random polling of remote users on office internet and general feeling of office network</li>
+            <li>Managing this data over time to ensure we have total inclusion of our users</li>
+            <li>Dynamic monitoring and failover of IPSec tunnelling</li>
+            <li>Monthly SLA reporting of WAN performance based on 100% meshed pinging of remote offices</li>
+        </ul>
+    </section>
+
+    <section class="section" id="reporting">
+        <div class="section-meta">
+            <span class="section-num">06</span>
+            <h2>Reporting</h2>
+        </div>
+        <ul class="item-list">
+            <li>Every single SNMP trap has to be actionable</li>
+            <li>Every single packet drop in our network has to be actionable</li>
+            <li>Every single TCP re-transmission inside the borders of our administrative control has to be actionable</li>
+            <li>Apply predictive algorithms to our graphing to alert of trends before they become issues</li>
+        </ul>
+    </section>
+
+    <section class="section" id="personal">
+        <div class="section-meta">
+            <span class="section-num">07</span>
+            <h2>Personal Development</h2>
+        </div>
+        <ul class="item-list">
+            <li>Everyone must commit to self-improvement</li>
+            <li>Certification track — optional but highly recommended</li>
+            <li>Regular hardware deep dives based on freely available vendor documentations, talks, presentations</li>
+            <li>Attend relevant conferences — but be careful about "time sinks"</li>
+        </ul>
+    </section>
+
+</main>
+
+<footer>
+    <p>Network Engineers Manifesto &mdash; A living document</p>
+</footer>
+
+</body>
+</html>
