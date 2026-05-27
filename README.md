@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Manifesto
+permalink: /
 ---
 
 # Manifesto
