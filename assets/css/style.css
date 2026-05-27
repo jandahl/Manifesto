@@ -21,8 +21,10 @@
     --border-light: #F0EDE8;
 }
 
-html {
-    scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
 }
 
 body {
@@ -219,7 +221,7 @@ nav {
 }
 
 .content ul li > ul li::before {
-    content: '–';
+    content: '\2013';
     position: absolute;
     left: 0;
     top: 0.25rem;
